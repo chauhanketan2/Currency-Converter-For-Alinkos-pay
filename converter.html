@@ -1,0 +1,597 @@
+{% extends "layout.html" %}
+
+{% block title %}Currency Converter - Alinkos Pay{% endblock %}
+
+{% block content %}
+<!-- Converter Header -->
+<section class="converter-header py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3">Universal Currency Converter</h2>
+                <p class="text-muted">Convert between all cryptocurrencies and fiat currencies with real-time rates</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Converter -->
+<section class="converter-main py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="converter-card">
+                    <div class="converter-form">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="fromAmount" class="form-label">Amount</label>
+                                <input type="number" class="form-control form-control-lg" id="fromAmount" value="1" step="0.01" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fromCurrency" class="form-label">From Currency</label>
+                                <div class="currency-dropdown">
+                                    <div class="dropdown-selected" id="fromCurrencySelected">
+                                        <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="dropdown-logo">
+                                        <span>USDT</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="dropdown-options" id="fromCurrencyOptions">
+                                        <!-- Cryptocurrencies -->
+                                        <div class="dropdown-section">Cryptocurrencies</div>
+                                        <div class="dropdown-option" data-value="USDT">
+                                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="dropdown-logo">
+                                            <span>USDT - Tether</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BTC">
+                                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="dropdown-logo">
+                                            <span>BTC - Bitcoin</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ETH">
+                                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="dropdown-logo">
+                                            <span>ETH - Ethereum</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BNB">
+                                            <img src="{{ url_for('static', filename='images/bnb-logo.svg') }}" alt="BNB" class="dropdown-logo">
+                                            <span>BNB - Binance Coin</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ADA">
+                                            <img src="{{ url_for('static', filename='images/ada-logo.svg') }}" alt="ADA" class="dropdown-logo">
+                                            <span>ADA - Cardano</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="SOL">
+                                            <img src="{{ url_for('static', filename='images/sol-logo.svg') }}" alt="SOL" class="dropdown-logo">
+                                            <span>SOL - Solana</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="XRP">
+                                            <img src="{{ url_for('static', filename='images/xrp-logo.svg') }}" alt="XRP" class="dropdown-logo">
+                                            <span>XRP - Ripple</span>
+                                        </div>
+                                        <!-- Fiat Currencies -->
+                                        <div class="dropdown-section">Fiat Currencies</div>
+                                        <div class="dropdown-option" data-value="USD">
+                                            <span class="fiat-symbol">$</span>
+                                            <span>USD - US Dollar</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="EUR">
+                                            <span class="fiat-symbol">€</span>
+                                            <span>EUR - Euro</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="GBP">
+                                            <span class="fiat-symbol">£</span>
+                                            <span>GBP - British Pound</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="JPY">
+                                            <span class="fiat-symbol">¥</span>
+                                            <span>JPY - Japanese Yen</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="INR">
+                                            <span class="fiat-symbol">₹</span>
+                                            <span>INR - Indian Rupee</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="fromCurrency" value="USDT">
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="toCurrency" class="form-label">To Currency</label>
+                                <div class="currency-dropdown">
+                                    <div class="dropdown-selected" id="toCurrencySelected">
+                                        <span class="fiat-symbol">₹</span>
+                                        <span>INR</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="dropdown-options" id="toCurrencyOptions">
+                                        <!-- Cryptocurrencies -->
+                                        <div class="dropdown-section">Cryptocurrencies</div>
+                                        <div class="dropdown-option" data-value="USDT">
+                                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="dropdown-logo">
+                                            <span>USDT - Tether</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BTC">
+                                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="dropdown-logo">
+                                            <span>BTC - Bitcoin</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ETH">
+                                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="dropdown-logo">
+                                            <span>ETH - Ethereum</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BNB">
+                                            <img src="{{ url_for('static', filename='images/bnb-logo.svg') }}" alt="BNB" class="dropdown-logo">
+                                            <span>BNB - Binance Coin</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ADA">
+                                            <img src="{{ url_for('static', filename='images/ada-logo.svg') }}" alt="ADA" class="dropdown-logo">
+                                            <span>ADA - Cardano</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="SOL">
+                                            <img src="{{ url_for('static', filename='images/sol-logo.svg') }}" alt="SOL" class="dropdown-logo">
+                                            <span>SOL - Solana</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="XRP">
+                                            <img src="{{ url_for('static', filename='images/xrp-logo.svg') }}" alt="XRP" class="dropdown-logo">
+                                            <span>XRP - Ripple</span>
+                                        </div>
+                                        <!-- Fiat Currencies -->
+                                        <div class="dropdown-section">Fiat Currencies</div>
+                                        <div class="dropdown-option" data-value="USD">
+                                            <span class="fiat-symbol">$</span>
+                                            <span>USD - US Dollar</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="EUR">
+                                            <span class="fiat-symbol">€</span>
+                                            <span>EUR - Euro</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="GBP">
+                                            <span class="fiat-symbol">£</span>
+                                            <span>GBP - British Pound</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="JPY">
+                                            <span class="fiat-symbol">¥</span>
+                                            <span>JPY - Japanese Yen</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="INR">
+                                            <span class="fiat-symbol">₹</span>
+                                            <span>INR - Indian Rupee</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="toCurrency" value="INR">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Result</label>
+                                <div class="result-display">
+                                    <h3 id="conversionResult">₹92.47</h3>
+                                    <small class="text-muted" id="conversionRate">1 USDT = ₹92.47</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-lg w-100" id="convertBtn">
+                                    <i class="fas fa-exchange-alt me-2"></i>Convert Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-outline-secondary" id="swapBtn">
+                                    <i class="fas fa-arrows-alt-h me-2"></i>Swap Currencies
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Conversions Section -->
+<section class="all-conversions py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-4">All Conversions for <span id="allConversionsAmount">1</span> <span id="allConversionsFrom">USDT</span></h3>
+                <div class="conversions-grid" id="conversionsGrid">
+                    <!-- Conversions will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Rates Section -->
+<section class="live-rates py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-4">Live Exchange Rates</h3>
+                <div class="rates-grid" id="ratesGrid">
+                    <!-- Live rates will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initializeConverter();
+    loadLiveRates();
+    loadAllConversions();
+    
+    // Auto-update every 30 seconds
+    setInterval(() => {
+        loadLiveRates();
+        updateConversion();
+    }, 30000);
+});
+
+function initializeConverter() {
+    // From currency dropdown
+    const fromDropdown = document.getElementById('fromCurrencySelected');
+    const fromOptions = document.getElementById('fromCurrencyOptions');
+    const fromCurrencyInput = document.getElementById('fromCurrency');
+    
+    fromDropdown.addEventListener('click', function() {
+        fromOptions.classList.toggle('show');
+    });
+    
+    fromOptions.querySelectorAll('.dropdown-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const value = this.dataset.value;
+            const text = this.querySelector('span:last-child').textContent;
+            const logo = this.querySelector('.dropdown-logo');
+            const symbol = this.querySelector('.fiat-symbol');
+            
+            // Update display
+            fromDropdown.innerHTML = '';
+            if (logo) {
+                fromDropdown.appendChild(logo.cloneNode(true));
+            }
+            if (symbol) {
+                fromDropdown.appendChild(symbol.cloneNode(true));
+            }
+            fromDropdown.innerHTML += `<span>${text}</span><i class="fas fa-chevron-down"></i>`;
+            
+            fromCurrencyInput.value = value;
+            fromOptions.classList.remove('show');
+            
+            updateConversion();
+            loadAllConversions();
+        });
+    });
+    
+    // To currency dropdown
+    const toDropdown = document.getElementById('toCurrencySelected');
+    const toOptions = document.getElementById('toCurrencyOptions');
+    const toCurrencyInput = document.getElementById('toCurrency');
+    
+    toDropdown.addEventListener('click', function() {
+        toOptions.classList.toggle('show');
+    });
+    
+    toOptions.querySelectorAll('.dropdown-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const value = this.dataset.value;
+            const text = this.querySelector('span:last-child').textContent;
+            const logo = this.querySelector('.dropdown-logo');
+            const symbol = this.querySelector('.fiat-symbol');
+            
+            // Update display
+            toDropdown.innerHTML = '';
+            if (logo) {
+                toDropdown.appendChild(logo.cloneNode(true));
+            }
+            if (symbol) {
+                toDropdown.appendChild(symbol.cloneNode(true));
+            }
+            toDropdown.innerHTML += `<span>${text}</span><i class="fas fa-chevron-down"></i>`;
+            
+            toCurrencyInput.value = value;
+            toOptions.classList.remove('show');
+            
+            updateConversion();
+            loadAllConversions();
+        });
+    });
+    
+    // Amount input
+    document.getElementById('fromAmount').addEventListener('input', updateConversion);
+    
+    // Convert button
+    document.getElementById('convertBtn').addEventListener('click', updateConversion);
+    
+    // Swap button
+    document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!fromDropdown.contains(e.target) && !fromOptions.contains(e.target)) {
+            fromOptions.classList.remove('show');
+        }
+        if (!toDropdown.contains(e.target) && !toOptions.contains(e.target)) {
+            toOptions.classList.remove('show');
+        }
+    });
+}
+
+function updateConversion() {
+    const amount = parseFloat(document.getElementById('fromAmount').value) || 1;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+    
+    fetch(`/api/convert?from_amount=${amount}&from_currency=${fromCurrency}&to_currency=${toCurrency}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('conversionResult').textContent = 'Error';
+                document.getElementById('conversionRate').textContent = data.error;
+                return;
+            }
+            
+            const result = data.to_amount;
+            const rate = data.rate;
+            
+            // Format result based on currency
+            let formattedResult;
+            if (toCurrency === 'INR') {
+                formattedResult = `₹${result.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            } else if (toCurrency === 'JPY') {
+                formattedResult = `¥${result.toLocaleString('ja-JP', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            } else {
+                formattedResult = `${result.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${toCurrency}`;
+            }
+            
+            document.getElementById('conversionResult').textContent = formattedResult;
+            document.getElementById('conversionRate').textContent = `${amount} ${fromCurrency} = ${formattedResult}`;
+        })
+        .catch(error => {
+            console.error('Conversion error:', error);
+            document.getElementById('conversionResult').textContent = 'Error';
+            document.getElementById('conversionRate').textContent = 'Failed to fetch rates';
+        });
+}
+
+function swapCurrencies() {
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+    const fromAmount = document.getElementById('fromAmount').value;
+    
+    // Swap currencies
+    document.getElementById('fromCurrency').value = toCurrency;
+    document.getElementById('toCurrency').value = fromCurrency;
+    
+    // Update dropdown displays
+    const fromDropdown = document.getElementById('fromCurrencySelected');
+    const toDropdown = document.getElementById('toCurrencySelected');
+    
+    // Trigger dropdown updates (simplified)
+    setTimeout(() => {
+        updateConversion();
+        loadAllConversions();
+    }, 100);
+}
+
+function loadAllConversions() {
+    const amount = parseFloat(document.getElementById('fromAmount').value) || 1;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    
+    document.getElementById('allConversionsAmount').textContent = amount;
+    document.getElementById('allConversionsFrom').textContent = fromCurrency;
+    
+    fetch(`/api/all-conversions?amount=${amount}&from_currency=${fromCurrency}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('conversionsGrid').innerHTML = '<p>Error loading conversions</p>';
+                return;
+            }
+            
+            const conversionsGrid = document.getElementById('conversionsGrid');
+            conversionsGrid.innerHTML = '';
+            
+            data.conversions.forEach(conv => {
+                const card = document.createElement('div');
+                card.className = 'conversion-card';
+                
+                const formattedAmount = conv.to_amount.toLocaleString('en-US', { 
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2 
+                });
+                
+                card.innerHTML = `
+                    <div class="conversion-from">${conv.from_currency}</div>
+                    <div class="conversion-to">${conv.to_currency}</div>
+                    <div class="conversion-amount">${formattedAmount}</div>
+                    <div class="conversion-rate">1 ${conv.from_currency} = ${conv.rate.toFixed(6)} ${conv.to_currency}</div>
+                `;
+                
+                conversionsGrid.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('All conversions error:', error);
+            document.getElementById('conversionsGrid').innerHTML = '<p>Error loading conversions</p>';
+        });
+}
+
+function loadLiveRates() {
+    fetch('/api/crypto-data')
+        .then(response => response.json())
+        .then(data => {
+            const ratesGrid = document.getElementById('ratesGrid');
+            ratesGrid.innerHTML = '';
+            
+            Object.entries(data).forEach(([symbol, crypto]) => {
+                const rateCard = document.createElement('div');
+                rateCard.className = 'rate-card';
+                
+                const changeClass = crypto.change_24h > 0 ? 'text-success' : 'text-danger';
+                const changeIcon = crypto.change_24h > 0 ? 'fa-caret-up' : 'fa-caret-down';
+                
+                rateCard.innerHTML = `
+                    <div class="rate-header">
+                        <img src="${crypto.logo}" alt="${symbol}" class="rate-logo">
+                        <div class="rate-info">
+                            <h6>${crypto.name}</h6>
+                            <span class="rate-symbol">${symbol}</span>
+                        </div>
+                    </div>
+                    <div class="rate-prices">
+                        <div class="rate-price">$${crypto.current_price.toLocaleString()}</div>
+                        <div class="rate-price-inr">₹${crypto.current_price_inr.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div class="rate-change ${changeClass}">
+                        <i class="fas ${changeIcon}"></i>
+                        ${crypto.change_24h.toFixed(2)}%
+                    </div>
+                `;
+                
+                ratesGrid.appendChild(rateCard);
+            });
+        })
+        .catch(error => {
+            console.error('Live rates error:', error);
+            document.getElementById('ratesGrid').innerHTML = '<p>Error loading live rates</p>';
+        });
+}
+</script>
+
+<style>
+.converter-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.result-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.result-display h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.conversions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.conversion-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.conversion-from {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.conversion-to {
+    font-weight: bold;
+    color: #333;
+    margin: 0.25rem 0;
+}
+
+.conversion-amount {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #667eea;
+    margin: 0.25rem 0;
+}
+
+.conversion-rate {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.rate-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.rate-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.rate-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+}
+
+.rate-info h6 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.rate-symbol {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.rate-prices {
+    margin-bottom: 0.5rem;
+}
+
+.rate-price {
+    font-weight: bold;
+    color: #333;
+}
+
+.rate-price-inr {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.rate-change {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.dropdown-section {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #6c757d;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 0.5rem;
+}
+
+.fiat-symbol {
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,296 @@
+{% extends "layout.html" %}
+
+{% block title %}Alinkos Pay - Crypto Trading Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold text-white mb-4">
+                        Trade Cryptocurrencies with Confidence
+                    </h1>
+                    <p class="lead text-white-50 mb-4">
+                        Alinkos Pay is your premier destination for USDT/INR trading and cryptocurrency exchange. 
+                        Experience seamless trading with real-time prices, advanced charts, and secure transactions.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{{ url_for('trade') }}" class="btn btn-light btn-lg me-3">
+                            <i class="fas fa-chart-line me-2"></i>Explore Markets
+                        </a>
+                        <a href="{{ url_for('trade') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Start Trading
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-visual">
+                    <div class="crypto-showcase">
+                        <div class="crypto-card" style="animation-delay: 0.1s;">
+                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>USDT/INR</h6>
+                                <p class="mb-0" id="usdt-price">₹93.30</p>
+                                <small class="text-success" id="usdt-change">+0.02%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.2s;">
+                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>BTC/INR</h6>
+                                <p class="mb-0" id="btc-price">₹66,08,946</p>
+                                <small class="text-success" id="btc-change">+3.2%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.3s;">
+                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>ETH/INR</h6>
+                                <p class="mb-0" id="eth-price">₹2,15,727</p>
+                                <small class="text-success" id="eth-change">+1.5%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.4s;">
+                            <img src="{{ url_for('static', filename='images/bnb-logo.svg') }}" alt="BNB" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>BNB/INR</h6>
+                                <p class="mb-0" id="bnb-price">₹45,679</p>
+                                <small class="text-success" id="bnb-change">+2.1%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.5s;">
+                            <img src="{{ url_for('static', filename='images/ada-logo.svg') }}" alt="ADA" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>ADA/INR</h6>
+                                <p class="mb-0" id="ada-price">₹45.67</p>
+                                <small class="text-danger" id="ada-change">-0.8%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.6s;">
+                            <img src="{{ url_for('static', filename='images/sol-logo.svg') }}" alt="SOL" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>SOL/INR</h6>
+                                <p class="mb-0" id="sol-price">₹14,568</p>
+                                <small class="text-success" id="sol-change">+4.2%</small>
+                            </div>
+                        </div>
+                        <div class="crypto-card" style="animation-delay: 0.7s;">
+                            <img src="{{ url_for('static', filename='images/xrp-logo.svg') }}" alt="XRP" class="crypto-icon">
+                            <div class="crypto-info">
+                                <h6>XRP/INR</h6>
+                                <p class="mb-0" id="xrp-price">₹38.45</p>
+                                <small class="text-success" id="xrp-change">+1.8%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Real-Time Charts</h4>
+                    <p>Advanced price charts with multiple timeframes for technical analysis and informed trading decisions.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Secure Trading</h4>
+                    <p>Bank-grade security with 2FA, cold storage, and encrypted transactions to protect your assets.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Instant Exchange</h4>
+                    <p>Lightning-fast order execution with competitive spreads and deep liquidity across major pairs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Mobile App</h4>
+                    <p>Trade on-the-go with our intuitive mobile application for iOS and Android devices.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>24/7 Support</h4>
+                    <p>Round-the-clock customer support to assist you with any trading or account issues.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h4>USDT/INR Focus</h4>
+                    <p>Specialized trading pair with competitive rates and seamless INR deposit/withdrawal options.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h2 class="stat-number">₹2.8B+</h2>
+                    <p class="stat-label">Daily Trading Volume</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h2 class="stat-number">50K+</h2>
+                    <p class="stat-label">Active Traders</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h2 class="stat-number">24,783</h2>
+                    <p class="stat-label">Supported Coins</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h2 class="stat-number">99.9%</h2>
+                    <p class="stat-label">Uptime</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Ready to Start Your Crypto Journey?</h2>
+                <p class="lead mb-4">
+                    Join thousands of traders who trust Alinkos Pay for their cryptocurrency trading needs. 
+                    Get started in minutes with our simple onboarding process.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-user-plus me-2"></i>Become Client
+                    </a>
+                    <a href="#" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-play me-2"></i>Start Trading
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+// Update home page prices
+document.addEventListener('DOMContentLoaded', function() {
+    updateHomePrices();
+    
+    // Update prices every 5 seconds
+    setInterval(updateHomePrices, 5000);
+});
+
+function updateHomePrices() {
+    fetch('/api/crypto-data')
+        .then(response => response.json())
+        .then(data => {
+            // Update USDT price
+            const usdtPrice = document.getElementById('usdt-price');
+            const usdtChange = document.getElementById('usdt-change');
+            if (usdtPrice && data.USDT) {
+                usdtPrice.textContent = `₹${data.USDT.current_price_inr.toFixed(2)}`;
+                usdtChange.textContent = `${data.USDT.change_24h > 0 ? '+' : ''}${data.USDT.change_24h.toFixed(2)}%`;
+                usdtChange.className = data.USDT.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update BTC price
+            const btcPrice = document.getElementById('btc-price');
+            const btcChange = document.getElementById('btc-change');
+            if (btcPrice && data.BTC) {
+                btcPrice.textContent = `₹${data.BTC.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                btcChange.textContent = `${data.BTC.change_24h > 0 ? '+' : ''}${data.BTC.change_24h.toFixed(2)}%`;
+                btcChange.className = data.BTC.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update ETH price
+            const ethPrice = document.getElementById('eth-price');
+            const ethChange = document.getElementById('eth-change');
+            if (ethPrice && data.ETH) {
+                ethPrice.textContent = `₹${data.ETH.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                ethChange.textContent = `${data.ETH.change_24h > 0 ? '+' : ''}${data.ETH.change_24h.toFixed(2)}%`;
+                ethChange.className = data.ETH.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update BNB price
+            const bnbPrice = document.getElementById('bnb-price');
+            const bnbChange = document.getElementById('bnb-change');
+            if (bnbPrice && data.BNB) {
+                bnbPrice.textContent = `₹${data.BNB.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                bnbChange.textContent = `${data.BNB.change_24h > 0 ? '+' : ''}${data.BNB.change_24h.toFixed(2)}%`;
+                bnbChange.className = data.BNB.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update ADA price
+            const adaPrice = document.getElementById('ada-price');
+            const adaChange = document.getElementById('ada-change');
+            if (adaPrice && data.ADA) {
+                adaPrice.textContent = `₹${data.ADA.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                adaChange.textContent = `${data.ADA.change_24h > 0 ? '+' : ''}${data.ADA.change_24h.toFixed(2)}%`;
+                adaChange.className = data.ADA.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update SOL price
+            const solPrice = document.getElementById('sol-price');
+            const solChange = document.getElementById('sol-change');
+            if (solPrice && data.SOL) {
+                solPrice.textContent = `₹${data.SOL.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                solChange.textContent = `${data.SOL.change_24h > 0 ? '+' : ''}${data.SOL.change_24h.toFixed(2)}%`;
+                solChange.className = data.SOL.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+            
+            // Update XRP price
+            const xrpPrice = document.getElementById('xrp-price');
+            const xrpChange = document.getElementById('xrp-change');
+            if (xrpPrice && data.XRP) {
+                xrpPrice.textContent = `₹${data.XRP.current_price_inr.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                xrpChange.textContent = `${data.XRP.change_24h > 0 ? '+' : ''}${data.XRP.change_24h.toFixed(2)}%`;
+                xrpChange.className = data.XRP.change_24h > 0 ? 'text-success' : 'text-danger';
+            }
+        })
+        .catch(error => console.error('Error updating prices:', error));
+}
+</script>
+{% endblock %}

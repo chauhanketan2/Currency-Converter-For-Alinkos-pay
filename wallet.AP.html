@@ -1,0 +1,590 @@
+{% extends "layout.html" %}
+
+{% block title %}Wallet - Alinkos Pay{% endblock %}
+
+{% block content %}
+<!-- Wallet Header -->
+<section class="wallet-header py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3">My Wallet</h2>
+                <p class="text-muted">Manage your cryptocurrency portfolio and track your balances</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Wallet Overview -->
+<section class="wallet-overview py-4">
+    <div class="container">
+        <div class="row">
+            <!-- Total Balance Card -->
+            <div class="col-lg-4 mb-4">
+                <div class="balance-card">
+                    <div class="balance-header">
+                        <h5>Total Portfolio Value</h5>
+                        <div class="balance-amount">
+                            <h2 id="totalBalance">₹125,750.00</h2>
+                            <small class="text-success">+12.5% (24h)</small>
+                        </div>
+                    </div>
+                    <div class="balance-chart">
+                        <canvas id="balanceChart" width="200" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="col-lg-8 mb-4">
+                <div class="quick-actions">
+                    <h5>Quick Actions</h5>
+                    <div class="action-buttons">
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-3">
+                                <button class="btn btn-outline-primary w-100 action-btn">
+                                    <i class="fas fa-arrow-down mb-2"></i>
+                                    <span>Deposit</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <button class="btn btn-outline-success w-100 action-btn">
+                                    <i class="fas fa-arrow-up mb-2"></i>
+                                    <span>Withdraw</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <button class="btn btn-outline-info w-100 action-btn">
+                                    <i class="fas fa-exchange-alt mb-2"></i>
+                                    <span>Trade</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <button class="btn btn-outline-warning w-100 action-btn">
+                                    <i class="fas fa-history mb-2"></i>
+                                    <span>History</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cryptocurrency Balances -->
+<section class="crypto-balances py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="balances-header">
+                    <h5>Cryptocurrency Balances</h5>
+                    <div class="filter-buttons">
+                        <button class="btn btn-sm btn-outline-primary active">All</button>
+                        <button class="btn btn-sm btn-outline-primary">Favorites</button>
+                        <button class="btn btn-sm btn-outline-primary">Positive</button>
+                        <button class="btn btn-sm btn-outline-primary">Negative</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- USDT Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Tether</h6>
+                                <span class="crypto-symbol">USDT</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>1,500.00</h4>
+                                <small class="text-muted">USDT</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹123,750.00</h5>
+                                <small class="text-success">+2.5%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BTC Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Bitcoin</h6>
+                                <span class="crypto-symbol">BTC</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>0.005</h4>
+                                <small class="text-muted">BTC</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹33,044.73</h5>
+                                <small class="text-success">+3.2%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETH Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Ethereum</h6>
+                                <span class="crypto-symbol">ETH</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>0.1</h4>
+                                <small class="text-muted">ETH</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹18,484.00</h5>
+                                <small class="text-danger">-1.2%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BNB Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/bnb-logo.svg') }}" alt="BNB" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Binance Coin</h6>
+                                <span class="crypto-symbol">BNB</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>2.5</h4>
+                                <small class="text-muted">BNB</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹114,197.25</h5>
+                                <small class="text-success">+2.1%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADA Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/ada-logo.svg') }}" alt="ADA" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Cardano</h6>
+                                <span class="crypto-symbol">ADA</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>1000</h4>
+                                <small class="text-muted">ADA</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹45,670.00</h5>
+                                <small class="text-danger">-0.8%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOL Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/sol-logo.svg') }}" alt="SOL" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Solana</h6>
+                                <span class="crypto-symbol">SOL</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>3.2</h4>
+                                <small class="text-muted">SOL</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹46,617.25</h5>
+                                <small class="text-success">+4.2%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- XRP Balance -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="crypto-balance-card">
+                    <div class="crypto-info">
+                        <div class="crypto-header">
+                            <img src="{{ url_for('static', filename='images/xrp-logo.svg') }}" alt="XRP" class="crypto-logo">
+                            <div class="crypto-details">
+                                <h6>Ripple</h6>
+                                <span class="crypto-symbol">XRP</span>
+                            </div>
+                            <div class="crypto-actions">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="balance-details">
+                            <div class="balance-amount">
+                                <h4>500</h4>
+                                <small class="text-muted">XRP</small>
+                            </div>
+                            <div class="balance-value">
+                                <h5>₹19,225.00</h5>
+                                <small class="text-success">+1.8%</small>
+                            </div>
+                        </div>
+                        <div class="balance-actions">
+                            <button class="btn btn-sm btn-primary">Deposit</button>
+                            <button class="btn btn-sm btn-success">Withdraw</button>
+                            <button class="btn btn-sm btn-info">Trade</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Transaction History -->
+<section class="transaction-history py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="history-header">
+                    <h5>Recent Transactions</h5>
+                    <div class="history-filters">
+                        <select class="form-select form-select-sm">
+                            <option>All Transactions</option>
+                            <option>Deposits</option>
+                            <option>Withdrawals</option>
+                            <option>Trades</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="transaction-list">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Cryptocurrency</th>
+                                    <th>Amount</th>
+                                    <th>Value (INR)</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-success">Deposit</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="crypto-logo-sm">
+                                            <span class="ms-2">USDT</span>
+                                        </div>
+                                    </td>
+                                    <td>500.00</td>
+                                    <td>₹46,650.00</td>
+                                    <td><span class="badge bg-success">Completed</span></td>
+                                    <td>2024-03-18 14:30</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-info">Trade</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="crypto-logo-sm">
+                                            <span class="ms-2">BTC</span>
+                                        </div>
+                                    </td>
+                                    <td>0.002</td>
+                                    <td>₹13,217.89</td>
+                                    <td><span class="badge bg-success">Completed</span></td>
+                                    <td>2024-03-18 13:45</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-warning">Withdraw</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="crypto-logo-sm">
+                                            <span class="ms-2">ETH</span>
+                                        </div>
+                                    </td>
+                                    <td>0.05</td>
+                                    <td>₹9,242.00</td>
+                                    <td><span class="badge bg-warning">Pending</span></td>
+                                    <td>2024-03-18 12:15</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-success">Deposit</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="crypto-logo-sm">
+                                            <span class="ms-2">USDT</span>
+                                        </div>
+                                    </td>
+                                    <td>1,000.00</td>
+                                    <td>₹93,300.00</td>
+                                    <td><span class="badge bg-success">Completed</span></td>
+                                    <td>2024-03-17 16:20</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+// Wallet functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initializeWalletInterface();
+    updateWalletBalances();
+});
+
+function initializeWalletInterface() {
+    // Filter buttons
+    const filterButtons = document.querySelectorAll('.filter-buttons button');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            filterBalances(this.textContent);
+        });
+    });
+
+    // Crypto balance action buttons
+    const actionButtons = document.querySelectorAll('.balance-actions button');
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.textContent;
+            const cryptoCard = this.closest('.crypto-balance-card');
+            const cryptoName = cryptoCard.querySelector('.crypto-details h6').textContent;
+            
+            handleCryptoAction(action, cryptoName);
+        });
+    });
+
+    // Initialize balance chart
+    initializeBalanceChart();
+}
+
+function updateWalletBalances() {
+    // Simulate real-time balance updates
+    setInterval(() => {
+        const totalBalance = document.getElementById('totalBalance');
+        if (totalBalance) {
+            // Add small variations to simulate price changes
+            const currentBalance = parseFloat(totalBalance.textContent.replace(/[₹,]/g, ''));
+            const change = (Math.random() - 0.5) * 1000; // ±500 INR
+            const newBalance = currentBalance + change;
+            totalBalance.textContent = `₹${newBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+    }, 10000); // Update every 10 seconds
+}
+
+function filterBalances(filter) {
+    const cryptoCards = document.querySelectorAll('.crypto-balance-card');
+    
+    cryptoCards.forEach(card => {
+        const changeElement = card.querySelector('.text-success, .text-danger');
+        const isPositive = changeElement && changeElement.classList.contains('text-success');
+        
+        switch(filter) {
+            case 'All':
+                card.style.display = 'block';
+                break;
+            case 'Positive':
+                card.style.display = isPositive ? 'block' : 'none';
+                break;
+            case 'Negative':
+                card.style.display = !isPositive ? 'block' : 'none';
+                break;
+            default:
+                card.style.display = 'block';
+        }
+    });
+}
+
+function handleCryptoAction(action, cryptoName) {
+    console.log(`${action} ${cryptoName}`);
+    
+    // Show appropriate modal or navigate to page
+    switch(action) {
+        case 'Deposit':
+            showDepositModal(cryptoName);
+            break;
+        case 'Withdraw':
+            showWithdrawModal(cryptoName);
+            break;
+        case 'Trade':
+            window.location.href = '/trade';
+            break;
+    }
+}
+
+function showDepositModal(cryptoName) {
+    // Implementation for deposit modal
+    console.log(`Show deposit modal for ${cryptoName}`);
+}
+
+function showWithdrawModal(cryptoName) {
+    // Implementation for withdraw modal
+    console.log(`Show withdraw modal for ${cryptoName}`);
+}
+
+function initializeBalanceChart() {
+    const canvas = document.getElementById('balanceChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // Create a simple line chart
+    const points = 30;
+    const step = width / points;
+    
+    ctx.strokeStyle = '#667eea';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    for (let i = 0; i < points; i++) {
+        const x = i * step;
+        const y = height / 2 + (Math.random() - 0.5) * height * 0.4;
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    
+    ctx.stroke();
+}
+</script>
+{% endblock %}

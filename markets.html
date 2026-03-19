@@ -1,0 +1,321 @@
+{% extends "layout.html" %}
+
+{% block title %}Markets - Alinkos Pay{% endblock %}
+
+{% block content %}
+<!-- Market Overview -->
+<section class="market-overview py-4">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="mb-3">Cryptocurrency Markets</h2>
+                <p class="text-muted">Real-time prices and market data for major cryptocurrencies with USDT/INR focus</p>
+            </div>
+        </div>
+        
+        <!-- Market Stats Cards -->
+        <div class="row mb-4" id="marketStats">
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon bg-primary">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h6 class="stat-label">Market Cap</h6>
+                        <p class="stat-value" id="totalMarketCap">₹2.85T</p>
+                        <small class="stat-change positive">+3.2%</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon bg-success">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h6 class="stat-label">24h Volume</h6>
+                        <p class="stat-value" id="totalVolume">₹45.6B</p>
+                        <small class="stat-change positive">+8.5%</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon bg-warning">
+                        <i class="fas fa-bitcoin"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h6 class="stat-label">BTC Dominance</h6>
+                        <p class="stat-value" id="btcDominance">52.3%</p>
+                        <small class="stat-change negative">-0.8%</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon bg-info">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h6 class="stat-label">Active Crypto</h6>
+                        <p class="stat-value" id="activeCryptos">24,783</p>
+                        <small class="stat-change positive">+142</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Crypto Table -->
+<section class="crypto-table-section py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-hover crypto-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>24h Change</th>
+                                <th>Market Cap</th>
+                                <th>Volume (24h)</th>
+                                <th>Circulating Supply</th>
+                                <th>Last 7 Days</th>
+                                <th>Chart</th>
+                            </tr>
+                        </thead>
+                        {% set logo_map = {
+    'USDT': url_for('static', filename='images/usdt-logo.svg'),
+    'BTC': url_for('static', filename='images/btc-logo.svg'),
+    'ETH': url_for('static', filename='images/eth-logo.svg'),
+    'BNB': url_for('static', filename='images/bnb-logo.svg'),
+    'ADA': url_for('static', filename='images/ada-logo.svg'),
+    'SOL': url_for('static', filename='images/sol-logo.svg'),
+    'XRP': url_for('static', filename='images/xrp-logo.svg')
+} %}
+                        <tbody>
+                            {% for symbol, crypto in cryptos.items() %}
+                            <tr class="crypto-row" data-symbol="{{ symbol }}">
+                                <td class="rank">{{ loop.index }}</td>
+                                <td class="crypto-info">
+                                    <img src="{{ logo_map[symbol] }}" alt="{{ crypto.name }}" class="crypto-logo">
+                                    <div class="crypto-details">
+                                        <span class="crypto-name">{{ crypto.name }}</span>
+                                        <span class="crypto-symbol">{{ crypto.symbol }}</span>
+                                    </div>
+                                </td>
+                                <td class="price">
+                                    <span class="current-price">₹{{ "%.2f"|format(crypto.current_price_inr) }}</span>
+                                </td>
+                                <td class="change {% if crypto.change_24h > 0 %}positive{% else %}negative{% endif %}">
+                                    <i class="fas fa-caret-{% if crypto.change_24h > 0 %}up{% else %}down{% endif %}"></i>
+                                    {{ "%.2f"|format(crypto.change_24h) }}%
+                                </td>
+                                <td class="market-cap">₹{{ "%.0f"|format(crypto.market_cap) }}</td>
+                                <td class="volume">₹{{ "%.0f"|format(crypto.volume_24h) }}</td>
+                                <td class="supply">{{ "{:,.0f}"|format(crypto.market_cap / crypto.current_price) }} {{ crypto.symbol }}</td>
+                                <td class="chart-cell">
+                                    <canvas id="sparkline-{{ symbol }}" width="100" height="40"></canvas>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Converter Section -->
+<section class="converter-section py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="converter-card">
+                    <h3 class="text-center mb-4">Currency Converter</h3>
+                    <form id="converterForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="fromAmount" class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="fromAmount" value="1" step="0.01" min="0">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="fromCurrency" class="form-label">From</label>
+                                <div class="currency-dropdown">
+                                    <div class="dropdown-selected" id="fromCurrencySelected">
+                                        <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="dropdown-logo">
+                                        <span>USDT</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="dropdown-options" id="fromCurrencyOptions">
+                                        <div class="dropdown-option" data-value="USDT">
+                                            <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="dropdown-logo">
+                                            <span>USDT</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BTC">
+                                            <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="dropdown-logo">
+                                            <span>BTC</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ETH">
+                                            <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="dropdown-logo">
+                                            <span>ETH</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="BNB">
+                                            <img src="{{ url_for('static', filename='images/bnb-logo.svg') }}" alt="BNB" class="dropdown-logo">
+                                            <span>BNB</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="ADA">
+                                            <img src="{{ url_for('static', filename='images/ada-logo.svg') }}" alt="ADA" class="dropdown-logo">
+                                            <span>ADA</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="SOL">
+                                            <img src="{{ url_for('static', filename='images/sol-logo.svg') }}" alt="SOL" class="dropdown-logo">
+                                            <span>SOL</span>
+                                        </div>
+                                        <div class="dropdown-option" data-value="XRP">
+                                            <img src="{{ url_for('static', filename='images/xrp-logo.svg') }}" alt="XRP" class="dropdown-logo">
+                                            <span>XRP</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="fromCurrency" value="USDT">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="toCurrency" class="form-label">To</label>
+                                <select class="form-select" id="toCurrency">
+                                    <option value="INR">INR</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="result-display">
+                                    <h4 id="conversionResult">₹92.47</h4>
+                                    <small class="text-muted" id="conversionRate">1 USDT = ₹92.47</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <h2 class="mb-4">About Alinkos Pay</h2>
+                <p class="lead mb-4">
+                    Alinkos Pay is your trusted cryptocurrency trading platform specializing in USDT/INR pairs. 
+                    We provide real-time market data, secure trading, and competitive rates for all your crypto needs.
+                </p>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt text-primary mb-3"></i>
+                            <h6>Secure Platform</h6>
+                            <p>Enterprise-grade security with multi-signature wallets and cold storage.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="feature-item">
+                            <i class="fas fa-rupee-sign text-info mb-3"></i>
+                            <h6>USDT/INR Focus</h6>
+                            <p>Competitive rates and seamless INR deposit/withdrawal options.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('trade') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket me-2"></i>Start Trading
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+// Initialize market stats and converter
+document.addEventListener('DOMContentLoaded', function() {
+    loadMarketStats();
+    initializeConverter();
+    initializeCurrencyDropdown();
+    
+    // Initialize sparklines after page load
+    setTimeout(() => {
+        updateSparklines();
+    }, 100);
+    
+    // Set up price updates every 5 seconds
+    setInterval(initializePriceUpdates, 5000);
+});
+
+function initializeCurrencyDropdown() {
+    const dropdownSelected = document.getElementById('fromCurrencySelected');
+    const dropdownOptions = document.getElementById('fromCurrencyOptions');
+    const fromCurrencyInput = document.getElementById('fromCurrency');
+    
+    if (dropdownSelected && dropdownOptions && fromCurrencyInput) {
+        // Toggle dropdown
+        dropdownSelected.addEventListener('click', function() {
+            dropdownOptions.classList.toggle('show');
+        });
+        
+        // Handle option selection
+        const options = dropdownOptions.querySelectorAll('.dropdown-option');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.dataset.value;
+                const img = this.querySelector('img').src;
+                const text = this.querySelector('span').textContent;
+                
+                // Update selected display
+                dropdownSelected.querySelector('.dropdown-logo').src = img;
+                dropdownSelected.querySelector('span').textContent = text;
+                
+                // Update hidden input
+                fromCurrencyInput.value = value;
+                
+                // Close dropdown
+                dropdownOptions.classList.remove('show');
+                
+                // Trigger converter update
+                updateConversion();
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownSelected.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                dropdownOptions.classList.remove('show');
+            }
+        });
+    }
+}
+
+function updateConversion() {
+    const amount = parseFloat(document.getElementById('fromAmount').value) || 1;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+    
+    fetch(`/api/convert?from_amount=${amount}&from_currency=${fromCurrency}&to_currency=${toCurrency}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('conversionResult').textContent = `₹${data.to_amount.toFixed(2)}`;
+            document.getElementById('conversionRate').textContent = `${data.from_amount} ${data.from_currency} = ₹${data.to_amount.toFixed(2)}`;
+        })
+        .catch(error => console.error('Conversion error:', error));
+}
+</script>
+{% endblock %}

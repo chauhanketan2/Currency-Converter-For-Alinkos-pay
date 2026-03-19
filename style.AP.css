@@ -1,0 +1,787 @@
+/* Alinkos Pay - Custom CSS */
+
+/* General Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.main-content {
+    padding-top: 76px; /* Account for fixed navbar */
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content h1 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons .btn {
+    padding: 12px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+}
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.crypto-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.crypto-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.crypto-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+}
+
+.crypto-info h6 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.crypto-info p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+/* Features Section */
+.features-section {
+    padding: 80px 0;
+}
+
+.feature-card {
+    padding: 2rem;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.feature-card h4 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Stats Section */
+.stats-section {
+    background: #f8f9fa;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: #fff;
+}
+
+.cta-section h2 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.cta-buttons .btn {
+    padding: 15px 40px;
+    font-weight: 600;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Market Overview */
+.market-overview {
+    background: #f8f9fa;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.stat-icon.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-icon.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.stat-icon.bg-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+}
+
+.stat-icon.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+}
+
+.stat-content h6 {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.stat-change {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.stat-change.positive {
+    color: #28a745;
+}
+
+.stat-change.negative {
+    color: #dc3545;
+}
+
+/* Crypto Table */
+.crypto-table-section {
+    background: #fff;
+}
+
+.crypto-table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-table th {
+    background: #f8f9fa;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    padding: 1rem;
+    color: #6c757d;
+}
+
+.crypto-table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+}
+
+.crypto-row:hover {
+    background: #f8f9fa;
+}
+
+.crypto-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 1rem;
+    border-radius: 50%;
+}
+
+.crypto-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.crypto-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.crypto-symbol {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+.current-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.change {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.change.positive {
+    color: #28a745;
+}
+
+.change.negative {
+    color: #dc3545;
+}
+
+.market-cap, .volume, .supply {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.chart-cell {
+    padding: 0.5rem;
+}
+
+/* Converter Section */
+.converter-section {
+    background: #f8f9fa;
+}
+
+.converter-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.converter-card h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* About Section */
+.about-section {
+    background: #fff;
+}
+
+.about-content {
+    text-align: center;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.feature-item h6 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.feature-item p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Trading Page Styles */
+.trade-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.trading-panel {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.trading-pair-selector {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.current-price-display h4 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.chart-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.chart-controls {
+    margin-bottom: 1rem;
+}
+
+.chart-canvas {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 200px;
+}
+
+.order-book {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-book h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.sell-order td.text-danger {
+    font-weight: 600;
+}
+
+.buy-order td.text-success {
+    font-weight: 600;
+}
+
+.current-price-bar {
+    background: #f8f9fa;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    font-weight: 600;
+}
+
+.trading-form {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.order-history {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.order-history h6 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.order-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #667eea;
+}
+
+/* Wallet Page Styles */
+.wallet-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.balance-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.balance-header h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.balance-amount h2 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.balance-amount small {
+    font-weight: 600;
+}
+
+.balance-chart {
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.quick-actions {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.quick-actions h5 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.action-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.crypto-balances {
+    background: #f8f9fa;
+}
+
+.balances-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.balances-header h5 {
+    font-weight: 600;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-buttons button {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.crypto-balance-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.crypto-balance-card:hover {
+    transform: translateY(-5px);
+}
+
+.crypto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.crypto-actions .btn {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.balance-details {
+    margin-bottom: 1.5rem;
+}
+
+.balance-amount h4 {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.balance-amount small {
+    color: #6c757d;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.balance-value h5 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.balance-value small {
+    font-weight: 600;
+}
+
+.balance-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.balance-actions .btn {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.transaction-history {
+    background: #fff;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.history-header h5 {
+    font-weight: 600;
+}
+
+.history-filters .form-select {
+    width: auto;
+    min-width: 200px;
+}
+
+.transaction-list {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-logo-sm {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+/* Additional responsive styles */
+@media (max-width: 768px) {
+    .trading-panel,
+    .trading-form,
+    .balance-card,
+    .quick-actions,
+    .crypto-balance-card,
+    .transaction-list {
+        padding: 1rem;
+    }
+    
+    .balances-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .balance-actions {
+        flex-direction: column;
+    }
+    
+    .crypto-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .crypto-actions {
+        align-self: flex-end;
+    }
+}
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+        min-height: auto;
+    }
+    
+    .hero-content {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-visual {
+        margin-top: 2rem;
+    }
+    
+    .crypto-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    .crypto-card {
+        padding: 1rem;
+    }
+    
+    .crypto-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .feature-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .stat-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .converter-card {
+        padding: 1.5rem;
+    }
+    
+    .crypto-table {
+        font-size: 0.9rem;
+    }
+    
+    .crypto-table th,
+    .crypto-table td {
+        padding: 0.5rem;
+    }
+    
+    .crypto-logo {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons .btn {
+        display: block;
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .crypto-showcase {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+}

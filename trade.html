@@ -1,0 +1,412 @@
+{% extends "layout.html" %}
+
+{% block title %}Trade - Alinkos Pay{% endblock %}
+
+{% block content %}
+<!-- Trading Header -->
+<section class="trade-header py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3">Trading Center</h2>
+                <p class="text-muted">Advanced trading interface with real-time market data and order management</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trading Interface -->
+<section class="trading-section py-4">
+    <div class="container">
+        <div class="row">
+            <!-- Trading Panel -->
+            <div class="col-lg-8">
+                <div class="trading-panel">
+                    <!-- Trading Pair Selector -->
+                    <div class="trading-pair-selector mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="tradingPair" class="form-label">Trading Pair</label>
+                                <select class="form-select" id="tradingPair">
+                                    <option value="USDT/INR" selected>USDT/INR</option>
+                                    <option value="BTC/INR">BTC/INR</option>
+                                    <option value="ETH/INR">ETH/INR</option>
+                                    <option value="BNB/INR">BNB/INR</option>
+                                    <option value="ADA/INR">ADA/INR</option>
+                                    <option value="SOL/INR">SOL/INR</option>
+                                    <option value="XRP/INR">XRP/INR</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Current Price</label>
+                                <div class="current-price-display">
+                                    <h4 id="currentTradingPrice">₹93.30</h4>
+                                    <small class="text-success">+2.5%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Area -->
+                    <div class="chart-container mb-4">
+                        <div class="chart-controls">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary active" data-period="1H">1H</button>
+                                <button type="button" class="btn btn-outline-primary" data-period="24H">24H</button>
+                                <button type="button" class="btn btn-outline-primary" data-period="7D">7D</button>
+                                <button type="button" class="btn btn-outline-primary" data-period="1M">1M</button>
+                                <button type="button" class="btn btn-outline-primary" data-period="1Y">1Y</button>
+                            </div>
+                        </div>
+                        <div class="chart-canvas">
+                            <canvas id="tradingChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Order Book -->
+                    <div class="order-book mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Order Book</h5>
+                                <div class="order-list">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="sellOrders">
+                                                <tr class="sell-order">
+                                                    <td class="text-danger">₹82.55</td>
+                                                    <td>1,000</td>
+                                                    <td>₹82,550</td>
+                                                </tr>
+                                                <tr class="sell-order">
+                                                    <td class="text-danger">₹82.52</td>
+                                                    <td>500</td>
+                                                    <td>₹41,260</td>
+                                                </tr>
+                                                <tr class="sell-order">
+                                                    <td class="text-danger">₹82.51</td>
+                                                    <td>750</td>
+                                                    <td>₹61,882</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="current-price-bar">
+                                        <span>Current: <strong id="orderBookPrice">₹93.30</strong></span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <tbody id="buyOrders">
+                                                <tr class="buy-order">
+                                                    <td class="text-success">₹82.48</td>
+                                                    <td>1,200</td>
+                                                    <td>₹98,976</td>
+                                                </tr>
+                                                <tr class="buy-order">
+                                                    <td class="text-success">₹82.45</td>
+                                                    <td>800</td>
+                                                    <td>₹65,960</td>
+                                                </tr>
+                                                <tr class="buy-order">
+                                                    <td class="text-success">₹82.42</td>
+                                                    <td>600</td>
+                                                    <td>₹49,452</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Recent Trades</h5>
+                                <div class="recent-trades">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-success">₹82.50</td>
+                                                    <td>500</td>
+                                                    <td class="text-muted">15:32:45</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-danger">₹82.48</td>
+                                                    <td>300</td>
+                                                    <td class="text-muted">15:32:12</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">₹82.47</td>
+                                                    <td>750</td>
+                                                    <td class="text-muted">15:31:58</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-success">₹82.46</td>
+                                                    <td>200</td>
+                                                    <td class="text-muted">15:31:45</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-danger">₹82.45</td>
+                                                    <td>400</td>
+                                                    <td class="text-muted">15:31:30</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trading Form -->
+            <div class="col-lg-4">
+                <div class="trading-form">
+                    <!-- Buy/Sell Tabs -->
+                    <ul class="nav nav-tabs mb-3" id="tradeTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="buy-tab" data-bs-toggle="tab" data-bs-target="#buy" type="button" role="tab">
+                                <i class="fas fa-arrow-up text-success me-2"></i>Buy
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="sell-tab" data-bs-toggle="tab" data-bs-target="#sell" type="button" role="tab">
+                                <i class="fas fa-arrow-down text-danger me-2"></i>Sell
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="tradeTabContent">
+                        <!-- Buy Tab -->
+                        <div class="tab-pane fade show active" id="buy" role="tabpanel">
+                            <form id="buyForm">
+                                <div class="mb-3">
+                                    <label for="buyAmount" class="form-label">Amount (USDT)</label>
+                                    <input type="number" class="form-control" id="buyAmount" placeholder="0.00" step="0.01" min="0">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="buyPrice" class="form-label">Price (INR)</label>
+                                    <input type="number" class="form-control" id="buyPrice" value="93.30" step="0.01" min="0">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="buyTotal" class="form-label">Total (INR)</label>
+                                    <input type="number" class="form-control" id="buyTotal" placeholder="0.00" step="0.01" min="0" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">Available Balance</small>
+                                        <small class="text-muted">₹50,000.00</small>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-shopping-cart me-2"></i>Place Buy Order
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Sell Tab -->
+                        <div class="tab-pane fade" id="sell" role="tabpanel">
+                            <form id="sellForm">
+                                <div class="mb-3">
+                                    <label for="sellAmount" class="form-label">Amount (USDT)</label>
+                                    <input type="number" class="form-control" id="sellAmount" placeholder="0.00" step="0.01" min="0">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellPrice" class="form-label">Price (INR)</label>
+                                    <input type="number" class="form-control" id="sellPrice" value="93.30" step="0.01" min="0">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellTotal" class="form-label">Total (INR)</label>
+                                    <input type="number" class="form-control" id="sellTotal" placeholder="0.00" step="0.01" min="0" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">Available Balance</small>
+                                        <small class="text-muted">1,500 USDT</small>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="fas fa-hand-holding-usd me-2"></i>Place Sell Order
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Order History -->
+                    <div class="order-history mt-4">
+                        <h6>Recent Orders</h6>
+                        <div class="order-list">
+                            <div class="order-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="order-logo">
+                                        <span class="text-success">BUY USDT/INR</span>
+                                    </div>
+                                    <small class="text-muted">2 min ago</small>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>500 USDT @ ₹93.30</span>
+                                    <span class="text-success">Completed</span>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ url_for('static', filename='images/usdt-logo.svg') }}" alt="USDT" class="order-logo">
+                                        <span class="text-danger">SELL USDT/INR</span>
+                                    </div>
+                                    <small class="text-muted">15 min ago</small>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>300 USDT @ ₹93.30</span>
+                                    <span class="text-success">Completed</span>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ url_for('static', filename='images/btc-logo.svg') }}" alt="BTC" class="order-logo">
+                                        <span class="text-success">BUY BTC/INR</span>
+                                    </div>
+                                    <small class="text-muted">1 hour ago</small>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>0.001 BTC @ ₹66,08,946</span>
+                                    <span class="text-warning">Pending</span>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ url_for('static', filename='images/eth-logo.svg') }}" alt="ETH" class="order-logo">
+                                        <span class="text-success">BUY ETH/INR</span>
+                                    </div>
+                                    <small class="text-muted">2 hours ago</small>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>0.05 ETH @ ₹2,15,727</span>
+                                    <span class="text-success">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+// Trading functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initializeTradingInterface();
+    loadMarketStats();
+});
+
+function initializeTradingInterface() {
+    // Buy form calculations
+    const buyAmount = document.getElementById('buyAmount');
+    const buyPrice = document.getElementById('buyPrice');
+    const buyTotal = document.getElementById('buyTotal');
+    
+    if (buyAmount && buyPrice && buyTotal) {
+        buyAmount.addEventListener('input', () => {
+            buyTotal.value = (buyAmount.value * buyPrice.value).toFixed(2);
+        });
+        
+        buyPrice.addEventListener('input', () => {
+            buyTotal.value = (buyAmount.value * buyPrice.value).toFixed(2);
+        });
+    }
+    
+    // Sell form calculations
+    const sellAmount = document.getElementById('sellAmount');
+    const sellPrice = document.getElementById('sellPrice');
+    const sellTotal = document.getElementById('sellTotal');
+    
+    if (sellAmount && sellPrice && sellTotal) {
+        sellAmount.addEventListener('input', () => {
+            sellTotal.value = (sellAmount.value * sellPrice.value).toFixed(2);
+        });
+        
+        sellPrice.addEventListener('input', () => {
+            sellTotal.value = (sellAmount.value * sellPrice.value).toFixed(2);
+        });
+    }
+    
+    // Trading pair selector
+    const tradingPair = document.getElementById('tradingPair');
+    if (tradingPair) {
+        tradingPair.addEventListener('change', updateTradingPair);
+    }
+    
+    // Chart period buttons
+    const periodButtons = document.querySelectorAll('[data-period]');
+    periodButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            periodButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            updateChart(this.dataset.period);
+        });
+    });
+}
+
+function updateTradingPair() {
+    const pair = document.getElementById('tradingPair').value;
+    const prices = {
+        'USDT/INR': 93.30,
+        'BTC/INR': 6608946.00,
+        'ETH/INR': 215726.80,
+        'BNB/INR': 45678.90,
+        'ADA/INR': 45.67,
+        'SOL/INR': 14567.89,
+        'XRP/INR': 38.45
+    };
+    
+    const price = prices[pair] || 92.47;
+    document.getElementById('currentTradingPrice').textContent = `₹${price.toFixed(2)}`;
+    document.getElementById('orderBookPrice').textContent = `₹${price.toFixed(2)}`;
+    document.getElementById('buyPrice').value = price.toFixed(2);
+    document.getElementById('sellPrice').value = price.toFixed(2);
+}
+
+function updateChart(period) {
+    // Update chart based on selected period
+    console.log('Updating chart for period:', period);
+    // Here you would fetch new chart data based on the period
+}
+
+// Auto-update prices
+setInterval(() => {
+    updateTradingPair();
+    updateOrderBook();
+}, 5000);
+
+function updateOrderBook() {
+    // Simulate order book updates
+    const buyOrders = document.getElementById('buyOrders');
+    const sellOrders = document.getElementById('sellOrders');
+    
+    // Add slight price variations
+    if (buyOrders && sellOrders) {
+        // This would normally fetch real order book data
+        console.log('Updating order book...');
+    }
+}
+</script>
+{% endblock %}
